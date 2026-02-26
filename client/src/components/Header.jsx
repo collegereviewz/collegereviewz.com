@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Edit3, GraduationCap, Twitter, Facebook, Instagram } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-const Header = () => {
+import logoImg from '../assets/logo6.png';
+
+const Header = ({ currentView }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -11,10 +16,23 @@ const Header = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = ['Home', 'Explore Colleges', 'Courses', 'Exams', 'Scholarship', 'Study Abroad', 'Contact Us'];
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Explore Colleges', path: '/ExploreColleges/' },
+    { name: 'Courses', path: '/Courses/' },
+    { name: 'Exams', path: '/Exams/' },
+    { name: 'Scholarship', path: '/Scholarship/' },
+    { name: 'Study Abroad', path: '/StudyAbroad/' },
+    { name: 'Contact Us', path: '/Contact/' }
+  ];
 
   return (
     <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
+      <motion.div
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+      >
 
       {/* Top announcement bar */}
       {!scrolled && (
@@ -22,9 +40,9 @@ const Header = () => {
           <span style={{ opacity: 0.95 }}>Helping students choose better — Write a review &amp; earn points!</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <a href="#" style={{ color: '#fff', textDecoration: 'none', opacity: 0.95 }}>Support</a>
+              <NavLink to="/Support/" style={{ color: '#fff', textDecoration: 'none', opacity: 0.95 }}>Support</NavLink>
               <span style={{ opacity: 0.4 }}>/</span>
-              <a href="#" style={{ color: '#fff', textDecoration: 'none', opacity: 0.95 }}>Login</a>
+              <NavLink to="/Login/" style={{ color: '#fff', textDecoration: 'none', opacity: 0.95 }}>Login</NavLink>
             </div>
             <div style={{ width: '1px', height: '16px', backgroundColor: 'rgba(255,255,255,0.3)' }}></div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -49,36 +67,45 @@ const Header = () => {
       }}>
 
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} className="nav-logo-wrap">
-          <GraduationCap size={30} strokeWidth={2.5} style={{ color: '#3b4eba' }} className="nav-logo-icon" />
-          <span style={{ fontWeight: 900, color: '#111827', letterSpacing: '-0.5px' }} className="nav-logo-text">CollegeReviewz</span>
+        <div 
+          style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} 
+          className="nav-logo-wrap"
+          onClick={() => { navigate('/'); window.scrollTo(0, 0); }}
+        >
+          <img src={logoImg} alt="Logo" style={{ width: '40px', height: '40px' }} className="nav-logo-icon" />
+          <span style={{ fontWeight: 900, color: '#111827', letterSpacing: '-0.5px' }} className="nav-logo-text">CollegeReviewZ</span>
         </div>
 
         {/* Desktop nav links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '40px', fontSize: '14px', fontWeight: 700 }} className="hidden-mobile">
           {navLinks.map((link) => (
-            <a
-              key={link}
-              href="#"
-              style={{ color: link === 'Home' ? '#5b51d8' : '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.target.style.color = '#5b51d8'}
-              onMouseLeave={e => e.target.style.color = link === 'Home' ? '#5b51d8' : '#64748b'}
+            <NavLink
+              key={link.name}
+              to={link.path}
+              onClick={() => window.scrollTo(0, 0)}
+              style={({ isActive }) => ({
+                color: isActive ? '#5b51d8' : '#64748b',
+                textDecoration: 'none',
+                transition: 'color 0.2s',
+                borderBottom: isActive ? '2px solid #5b51d8' : '2px solid transparent',
+                paddingBottom: '4px'
+              })}
             >
-              {link}
-            </a>
+              {link.name}
+            </NavLink>
           ))}
         </div>
 
         {/* CTA Button */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="nav-right-wrap">
-          <a
-            href="#"
+          <NavLink
+            to="/WriteReview/"
             className="nav-cta"
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(91,81,216,0.4)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(91,81,216,0.25)'; }}
           >
             <span>Write A Review</span> <Edit3 size={15} strokeWidth={2.5} />
-          </a>
+          </NavLink>
 
           {/* Hamburger */}
           <button
@@ -95,21 +122,34 @@ const Header = () => {
       {menuOpen && (
         <div style={{ backgroundColor: '#fff', borderTop: '1px solid #f1f5f9', padding: '20px 24px 32px', boxShadow: '0 20px 60px rgba(0,0,0,0.12)' }}>
           {navLinks.map((link) => (
-            <a
-              key={link}
-              href="#"
-              onClick={() => setMenuOpen(false)}
-              style={{ display: 'block', padding: '14px 0', borderBottom: '1px solid #f8fafc', color: '#111827', fontWeight: 700, fontSize: '16px', textDecoration: 'none' }}
+            <NavLink
+              key={link.name}
+              to={link.path}
+              onClick={() => {
+                setMenuOpen(false);
+                window.scrollTo(0, 0);
+              }}
+              style={({ isActive }) => ({
+                display: 'block',
+                padding: '14px 0',
+                borderBottom: '1px solid #f8fafc',
+                color: isActive ? '#5b51d8' : '#111827',
+                fontWeight: 700,
+                fontSize: '16px',
+                textDecoration: 'none'
+              })}
             >
-              {link}
-            </a>
+              {link.name}
+            </NavLink>
           ))}
-          <a
-            href="#"
-            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #5b51d8, #38bdf8)', color: '#fff', padding: '16px', marginTop: '20px', borderRadius: '16px', fontWeight: 800, textDecoration: 'none' }}
+
+          <NavLink
+            to="/WriteReview/"
+            onClick={() => setMenuOpen(false)}
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #6366f1, #0ea5e9)', color: '#fff', padding: '16px', marginTop: '20px', borderRadius: '16px', fontWeight: 800, textDecoration: 'none' }}
           >
             Write A Review <Edit3 size={18} />
-          </a>
+          </NavLink>
         </div>
       )}
 
@@ -119,14 +159,14 @@ const Header = () => {
           display: flex;
           align-items: center;
           gap: 8px;
-          background: linear-gradient(135deg, #5b51d8, #38bdf8);
+          background: linear-gradient(135deg, #6366f1, #0ea5e9);
           color: #fff;
           padding: 10px 24px;
           border-radius: 50px;
           font-weight: 800;
           font-size: 13.5px;
           text-decoration: none;
-          box-shadow: 0 8px 24px rgba(91,81,216,0.25);
+          box-shadow: 0 8px 24px rgba(99, 102, 241, 0.25);
           transition: all 0.2s ease;
           border: none;
           white-space: nowrap;
@@ -155,6 +195,7 @@ const Header = () => {
           .show-mobile { display: none !important; }
         }
       `}</style>
+      </motion.div>
     </header>
   );
 };

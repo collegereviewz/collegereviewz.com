@@ -1,18 +1,17 @@
-import React from 'react';
-import { Heart, Settings, Briefcase, Monitor, Landmark, Scale, Palette, FlaskConical, ChevronRight } from 'lucide-react';
+import { Heart, Settings, Briefcase, Monitor, Landmark, Scale, Palette, FlaskConical, ChevronRight, Stethoscope, Code } from 'lucide-react';
 
 const courses = [
   { name: 'Medical', sub: 'NEET • MBBS • Cutoff', desc: 'Your journey from NEET aspirant to successful Doctor starts here.', icon: Heart, accent: '#e11d48', bg: '#fff1f2', border: '#fecdd3' },
   { name: 'Engineering', sub: 'JEE • B.Tech • IITs', desc: "Build the future with India's most versatile and in-demand degree.", icon: Settings, accent: '#0ea5e9', bg: '#e0f2fe', border: '#bae6fd' },
   { name: 'MBA', sub: 'CAT • IIMs • ROI', desc: 'High-paying leadership roles and fast-track corporate growth.', icon: Briefcase, accent: '#7c3aed', bg: '#ede9fe', border: '#c4b5fd' },
   { name: 'Computer Science', sub: 'JEE • CSE • Rank', desc: 'Join the highest-paid industry driving the global tech revolution.', icon: Monitor, accent: '#5b51d8', bg: '#eef2ff', border: '#c7d2fe' },
-  { name: 'Commerce', sub: 'CA • Finance • Banking', desc: 'Master the language of business and build a CA foundation.', icon: Landmark, accent: '#059669', bg: '#ecfdf5', border: '#a7f3d0' },
-  { name: 'LAW', sub: 'CLAT • NLUs • Corporate', desc: 'Defend justice or dominate the corporate world with a legal degree.', icon: Scale, accent: '#b45309', bg: '#fff7ed', border: '#fed7aa' },
-  { name: 'Arts & Humanities', sub: 'UPSC • Media • Policy', desc: 'The preferred foundation for Civil Services and creative careers.', icon: Palette, accent: '#db2777', bg: '#fdf2f8', border: '#fbcfe8' },
-  { name: 'Pharmacy', sub: 'GPAT • Pharma • Research', desc: 'Bridge science and healthcare through medical innovation.', icon: FlaskConical, accent: '#0f766e', bg: '#f0fdfa', border: '#99f6e4', featured: true },
+  { name: 'BBA', sub: 'SET • NPAT • ROI', desc: 'The elite business degree for future CEOs and luxury brand managers.', icon: Briefcase, accent: '#4338ca', bg: '#eef2ff', border: '#c7d2fe', featured: true },
+  { name: 'BCA', sub: 'IPU CET • IT • Dev', desc: 'Master software development and join the booming digital economy.', icon: Code, accent: '#0ea5e9', bg: '#e0f2fe', border: '#bae6fd' },
+  { name: 'B.Sc Nursing', sub: 'NEET • INC • Health', desc: 'Become a respected healthcare leader in patient care and medicine.', icon: Stethoscope, accent: '#0d9488', bg: '#f0fdfa', border: '#99f6e4' },
+  { name: 'Arts & Humanities', sub: 'UPSC • Media • Policy', desc: 'The high-value foundation for Civil Services and creative leadership.', icon: Palette, accent: '#db2777', bg: '#fdf2f8', border: '#fbcfe8' },
 ];
 
-const PopularCourses = () => (
+const PopularCourses = ({ onNavigate }) => (
   <section style={{ padding: '96px 32px', background: '#f8fafc' }}>
     <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
@@ -20,12 +19,12 @@ const PopularCourses = () => (
       <div style={{ textAlign: 'center', marginBottom: '72px' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#5b51d8', fontWeight: 800, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '16px' }}>
           <div style={{ width: '32px', height: '1px', background: '#5b51d8', opacity: 0.4 }} />
-          Explore Opportunities
+          Popular Courses
           <div style={{ width: '32px', height: '1px', background: '#5b51d8', opacity: 0.4 }} />
         </div>
         <h2 style={{ fontSize: 'clamp(28px,4vw,48px)', fontWeight: 900, color: '#111827', marginBottom: '16px', letterSpacing: '-0.5px', lineHeight: 1.15 }}>
-          Popular Courses<br />
-          <span style={{ background: 'linear-gradient(135deg, #5b51d8, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>India Searches For</span>
+          Most Popular Courses <br />
+          <span style={{ background: 'linear-gradient(135deg, #5b51d8, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Students Search</span>
         </h2>
         <p style={{ color: '#64748b', fontSize: '17px', maxWidth: '540px', margin: '0 auto', lineHeight: 1.7, fontWeight: 500 }}>
           Discover the most sought-after career paths, entrance exams, and the best colleges to pursue your dreams.
@@ -37,6 +36,7 @@ const PopularCourses = () => (
         {courses.map((course, i) => (
           <div
             key={i}
+            onClick={() => onNavigate('Courses')}
             style={{
               background: course.featured ? '#111827' : '#fff',
               borderRadius: '28px',
