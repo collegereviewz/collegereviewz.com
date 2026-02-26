@@ -221,10 +221,17 @@ const ReviewPage = () => {
     const [editCommentContent, setEditCommentContent] = useState('');
     const [showCommentVideoOptions, setShowCommentVideoOptions] = useState(null); // stores postId
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const handleResize = () => setWindowWidth(window.innerWidth);
         window.addEventListener('resize', handleResize);
+
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            try { setUser(JSON.parse(storedUser)); } catch (e) { }
+        }
+
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
@@ -606,7 +613,7 @@ const ReviewPage = () => {
         else if (selectedGif) finalType = 'gif';
 
         const reviewData = {
-            author: "Anonymous Student",
+            author: user?.fullName || "Anonymous Student",
             role: "Student",
             content: newPostContent,
             type: finalType,
@@ -823,7 +830,7 @@ const ReviewPage = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    author: "Anonymous Student",
+                    author: user?.fullName || "Anonymous Student",
                     content,
                     type: finalType,
                     mediaUrl
