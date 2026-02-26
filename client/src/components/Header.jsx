@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Edit3, GraduationCap, Twitter, Facebook, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -11,7 +12,15 @@ const Header = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navLinks = ['Home', 'Explore Colleges', 'Courses', 'Exams', 'Scholarship', 'Study Abroad', 'Contact Us'];
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Explore Colleges', path: '#' },
+    { name: 'Courses', path: '#' },
+    { name: 'Exams', path: '#' },
+    { name: 'Scholarship', path: '#' },
+    { name: 'Study Abroad', path: '#' },
+    { name: 'Contact Us', path: '#' }
+  ];
 
   return (
     <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}>
@@ -49,36 +58,48 @@ const Header = () => {
       }}>
 
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} className="nav-logo-wrap">
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', textDecoration: 'none' }} className="nav-logo-wrap">
           <GraduationCap size={30} strokeWidth={2.5} style={{ color: '#3b4eba' }} className="nav-logo-icon" />
           <span style={{ fontWeight: 900, color: '#111827', letterSpacing: '-0.5px' }} className="nav-logo-text">CollegeReviewz</span>
-        </div>
+        </Link>
 
         {/* Desktop nav links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '40px', fontSize: '14px', fontWeight: 700 }} className="hidden-mobile">
           {navLinks.map((link) => (
-            <a
-              key={link}
-              href="#"
-              style={{ color: link === 'Home' ? '#5b51d8' : '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
-              onMouseEnter={e => e.target.style.color = '#5b51d8'}
-              onMouseLeave={e => e.target.style.color = link === 'Home' ? '#5b51d8' : '#64748b'}
-            >
-              {link}
-            </a>
+            link.path.startsWith('/') ? (
+              <Link
+                key={link.name}
+                to={link.path}
+                style={{ color: link.name === 'Home' ? '#5b51d8' : '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.target.style.color = '#5b51d8'}
+                onMouseLeave={e => e.target.style.color = link.name === 'Home' ? '#5b51d8' : '#64748b'}
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={link.path}
+                style={{ color: link.name === 'Home' ? '#5b51d8' : '#64748b', textDecoration: 'none', transition: 'color 0.2s' }}
+                onMouseEnter={e => e.target.style.color = '#5b51d8'}
+                onMouseLeave={e => e.target.style.color = link.name === 'Home' ? '#5b51d8' : '#64748b'}
+              >
+                {link.name}
+              </a>
+            )
           ))}
         </div>
 
         {/* CTA Button */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className="nav-right-wrap">
-          <a
-            href="#"
+          <Link
+            to="/review"
             className="nav-cta"
             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(91,81,216,0.4)'; }}
             onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(91,81,216,0.25)'; }}
           >
             <span>Write A Review</span> <Edit3 size={15} strokeWidth={2.5} />
-          </a>
+          </Link>
 
           {/* Hamburger */}
           <button
@@ -95,21 +116,33 @@ const Header = () => {
       {menuOpen && (
         <div style={{ backgroundColor: '#fff', borderTop: '1px solid #f1f5f9', padding: '20px 24px 32px', boxShadow: '0 20px 60px rgba(0,0,0,0.12)' }}>
           {navLinks.map((link) => (
-            <a
-              key={link}
-              href="#"
-              onClick={() => setMenuOpen(false)}
-              style={{ display: 'block', padding: '14px 0', borderBottom: '1px solid #f8fafc', color: '#111827', fontWeight: 700, fontSize: '16px', textDecoration: 'none' }}
-            >
-              {link}
-            </a>
+            link.path.startsWith('/') ? (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => setMenuOpen(false)}
+                style={{ display: 'block', padding: '14px 0', borderBottom: '1px solid #f8fafc', color: '#111827', fontWeight: 700, fontSize: '16px', textDecoration: 'none' }}
+              >
+                {link.name}
+              </Link>
+            ) : (
+              <a
+                key={link.name}
+                href={link.path}
+                onClick={() => setMenuOpen(false)}
+                style={{ display: 'block', padding: '14px 0', borderBottom: '1px solid #f8fafc', color: '#111827', fontWeight: 700, fontSize: '16px', textDecoration: 'none' }}
+              >
+                {link.name}
+              </a>
+            )
           ))}
-          <a
-            href="#"
+          <Link
+            to="/review"
+            onClick={() => setMenuOpen(false)}
             style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #5b51d8, #38bdf8)', color: '#fff', padding: '16px', marginTop: '20px', borderRadius: '16px', fontWeight: 800, textDecoration: 'none' }}
           >
             Write A Review <Edit3 size={18} />
-          </a>
+          </Link>
         </div>
       )}
 
