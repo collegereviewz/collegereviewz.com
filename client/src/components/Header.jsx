@@ -13,6 +13,14 @@ const Header = ({ currentView }) => {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
+
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (e) { console.error(e) }
+    }
+
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
