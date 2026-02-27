@@ -1,5 +1,7 @@
 import React from 'react';
 import { Search, CheckCircle, MessageSquare, ChevronRight, Star, Shield } from 'lucide-react';
+import { motion } from 'framer-motion';
+import heroBg from '../assets/background3.png';
 
 const stats = [
   { num: '12,000+', label: 'Verified Reviews' },
@@ -14,103 +16,19 @@ const checks = [
   'Neutral, Unbiased Expert Guidance',
 ];
 
-/* ── Inline SVG Robot with CRZ branding ────────────────────────────────── */
-const RobotIllustration = () => (
-  <svg viewBox="0 0 420 480" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto', display: 'block' }}>
-    <defs>
-      <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#5b51d8" stopOpacity="0.4" />
-        <stop offset="100%" stopColor="#0f172a" stopOpacity="0" />
-      </radialGradient>
-      <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#312e81" />
-        <stop offset="100%" stopColor="#1e1b4b" />
-      </linearGradient>
-      <linearGradient id="headGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#4338ca" />
-        <stop offset="100%" stopColor="#1e1b4b" />
-      </linearGradient>
-      <linearGradient id="glowLine" x1="0%" y1="0%" x2="0%" y2="100%">
-        <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.9" />
-        <stop offset="100%" stopColor="#818cf8" stopOpacity="0.2" />
-      </linearGradient>
-      <filter id="glow">
-        <feGaussianBlur stdDeviation="3" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    <ellipse cx="210" cy="260" rx="180" ry="200" fill="url(#bgGlow)" />
-    <g stroke="#38bdf8" strokeWidth="1" opacity="0.3" fill="none">
-      <line x1="210" y1="80" x2="210" y2="20" /><line x1="210" y1="20" x2="260" y2="20" />
-      <circle cx="260" cy="20" r="3" fill="#38bdf8" opacity="0.7" />
-      <line x1="210" y1="20" x2="150" y2="20" />
-      <circle cx="150" cy="20" r="3" fill="#38bdf8" opacity="0.7" />
-      <line x1="320" y1="180" x2="390" y2="180" /><line x1="390" y1="180" x2="390" y2="140" />
-      <circle cx="390" cy="140" r="3" fill="#38bdf8" opacity="0.7" />
-      <line x1="390" y1="180" x2="390" y2="220" />
-      <circle cx="390" cy="220" r="3" fill="#38bdf8" opacity="0.7" />
-      <line x1="100" y1="180" x2="30" y2="180" /><line x1="30" y1="180" x2="30" y2="140" />
-      <circle cx="30" cy="140" r="3" fill="#38bdf8" opacity="0.7" />
-      <line x1="30" y1="180" x2="30" y2="220" />
-      <circle cx="30" cy="220" r="3" fill="#38bdf8" opacity="0.7" />
-    </g>
-    <rect x="207" y="30" width="6" height="50" rx="3" fill="url(#glowLine)" opacity="0.8" />
-    {[[340,100],[360,200],[70,100],[50,200],[300,50],[120,50]].map(([cx,cy],i) => (
-      <circle key={i} cx={cx} cy={cy} r="3" fill="#818cf8" opacity="0.5" />
-    ))}
-    {[[350,300],[60,300],[370,380],[60,380]].map(([cx,cy],i) => (
-      <circle key={i+6} cx={cx} cy={cy} r="2" fill="#38bdf8" opacity="0.4" />
-    ))}
-    {/* Head */}
-    <rect x="130" y="80" width="160" height="130" rx="28" fill="url(#headGrad)" stroke="#4f46e5" strokeWidth="1.5" />
-    <rect x="140" y="88" width="60" height="4" rx="2" fill="white" opacity="0.08" />
-    <rect x="152" y="118" width="36" height="22" rx="8" fill="#0f172a" />
-    <rect x="232" y="118" width="36" height="22" rx="8" fill="#0f172a" />
-    <ellipse className="robot-eye-l" cx="170" cy="129" rx="10" ry="7" fill="#38bdf8" opacity="0.9" filter="url(#glow)" />
-    <ellipse className="robot-eye-r" cx="250" cy="129" rx="10" ry="7" fill="#38bdf8" opacity="0.9" filter="url(#glow)" />
-    <circle className="robot-eye-l" cx="170" cy="129" r="4" fill="white" opacity="0.9" />
-    <circle className="robot-eye-r" cx="250" cy="129" r="4" fill="white" opacity="0.9" />
-    <rect x="162" y="160" width="96" height="18" rx="9" fill="#0f172a" opacity="0.7" />
-    <rect x="170" y="165" width="14" height="8" rx="3" fill="#38bdf8" opacity="0.7" />
-    <rect x="190" y="165" width="14" height="8" rx="3" fill="#818cf8" opacity="0.5" />
-    <rect x="210" y="165" width="14" height="8" rx="3" fill="#38bdf8" opacity="0.7" />
-    <rect x="230" y="165" width="14" height="8" rx="3" fill="#818cf8" opacity="0.5" />
-    {/* Neck */}
-    <rect x="193" y="210" width="34" height="30" rx="6" fill="#312e81" stroke="#4f46e5" strokeWidth="1" />
-    <line x1="200" y1="215" x2="200" y2="235" stroke="#38bdf8" strokeWidth="1" opacity="0.5" />
-    <line x1="210" y1="215" x2="210" y2="235" stroke="#38bdf8" strokeWidth="1" opacity="0.5" />
-    <line x1="220" y1="215" x2="220" y2="235" stroke="#38bdf8" strokeWidth="1" opacity="0.5" />
-    {/* Body */}
-    <rect x="100" y="240" width="220" height="175" rx="28" fill="url(#bodyGrad)" stroke="#4f46e5" strokeWidth="1.5" />
-    <rect x="112" y="250" width="80" height="4" rx="2" fill="white" opacity="0.06" />
-    <rect x="140" y="268" width="140" height="90" rx="18" fill="#0f172a" stroke="#38bdf8" strokeWidth="1.5" opacity="0.95" />
-    <rect x="140" y="268" width="140" height="90" rx="18" fill="none" stroke="#38bdf8" strokeWidth="2" opacity="0.4" />
-    <text x="210" y="320" textAnchor="middle" fontSize="44" fontWeight="900" letterSpacing="-2" fill="white" fontFamily="sans-serif" opacity="0.95">CRZ</text>
-    <ellipse cx="210" cy="330" rx="50" ry="10" fill="#38bdf8" opacity="0.12" />
-    <rect x="120" y="390" width="180" height="10" rx="5" fill="#4f46e5" opacity="0.4" />
-    <rect x="62" y="250" width="46" height="90" rx="18" fill="url(#bodyGrad)" stroke="#4f46e5" strokeWidth="1.5" />
-    <rect x="312" y="250" width="46" height="90" rx="18" fill="url(#bodyGrad)" stroke="#4f46e5" strokeWidth="1.5" />
-    <circle cx="85" cy="295" r="8" fill="#38bdf8" opacity="0.2" />
-    <circle cx="85" cy="295" r="4" fill="#38bdf8" opacity="0.6" />
-    <circle cx="335" cy="295" r="8" fill="#38bdf8" opacity="0.2" />
-    <circle cx="335" cy="295" r="4" fill="#38bdf8" opacity="0.6" />
-    <rect x="145" y="415" width="50" height="55" rx="14" fill="url(#bodyGrad)" stroke="#4f46e5" strokeWidth="1.5" />
-    <rect x="225" y="415" width="50" height="55" rx="14" fill="url(#bodyGrad)" stroke="#4f46e5" strokeWidth="1.5" />
-    <rect x="138" y="458" width="64" height="18" rx="9" fill="#312e81" stroke="#4f46e5" strokeWidth="1" />
-    <rect x="218" y="458" width="64" height="18" rx="9" fill="#312e81" stroke="#4f46e5" strokeWidth="1" />
-    {/* CollegeReviewZ label */}
-    <rect x="290" y="280" width="115" height="28" rx="8" fill="rgba(15,23,42,0.85)" />
-    <text x="347" y="299" textAnchor="middle" fontSize="11" fontWeight="700" fill="#38bdf8" fontFamily="sans-serif" letterSpacing="0.5">CollegeReviewZ</text>
-    <line x1="280" y1="298" x2="290" y2="294" stroke="#38bdf8" strokeWidth="1" opacity="0.5" strokeDasharray="3,2" />
-  </svg>
-);
 
-const Hero = () => (
+
+const Hero = ({ onNavigate }) => (
   <>
     {/* ── Responsive CSS ───────────────────────────────────────────────── */}
     <style>{`
       .hero-section {
-        background: linear-gradient(160deg, #0f172a 0%, #1e293b 60%, #0c1a3a 100%);
+        background: linear-gradient(160deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.85) 60%),
+                    url(${heroBg});
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-blend-mode: overlay;
         padding-top: 140px;
         padding-bottom: 24px;
         position: relative;
@@ -119,6 +37,39 @@ const Hero = () => (
         box-sizing: border-box;
         display: flex;
         align-items: flex-start;
+      }
+
+      .hero-glow-mesh {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-image: 
+          radial-gradient(circle at 10% 10%, rgba(56,189,248,0.08) 0%, transparent 25%),
+          radial-gradient(circle at 90% 10%, rgba(91,81,216,0.1) 0%, transparent 30%),
+          radial-gradient(circle at 50% 90%, rgba(56,189,248,0.05) 0%, transparent 40%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .floating-particles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      @keyframes float-p {
+        0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+        50% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+      }
+
+      .particle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: #38bdf8;
+        border-radius: 50%;
+        filter: blur(1px);
+        animation: float-p infinite ease-in-out;
       }
 
       /* ── Two-column grid ── */
@@ -163,7 +114,6 @@ const Hero = () => (
         font-size: clamp(14px, 1.5vw, 16px);
         line-height: 1.8;
         margin-bottom: 18px;
-        max-width: 500px;
         font-weight: 400;
       }
 
@@ -278,6 +228,7 @@ const Hero = () => (
           padding-top: 145px;
           padding-bottom: 60px;
           align-items: flex-start;
+          background-position: 43% center;
         }
         .hero-inner { padding: 0 22px; }
         .hero-grid {
@@ -317,11 +268,20 @@ const Hero = () => (
     `}</style>
 
     <section className="hero-section">
+      {/* Background Enhancements */}
+      <div className="hero-glow-mesh" />
+      <div className="floating-particles">
+        <div className="particle" style={{ top: '20%', left: '10%', animationDuration: '8s' }} />
+        <div className="particle" style={{ top: '40%', left: '25%', animationDuration: '12s', width: '2px', height: '2px' }} />
+        <div className="particle" style={{ top: '15%', left: '70%', animationDuration: '10s', background: '#818cf8' }} />
+        <div className="particle" style={{ top: '60%', left: '85%', animationDuration: '15s' }} />
+        <div className="particle" style={{ top: '80%', left: '40%', animationDuration: '9s', width: '4px', height: '4px', opacity: 0.2 }} />
+      </div>
 
-      {/* Glow blobs */}
-      <div style={{ position: 'absolute', top: '-80px', right: '-80px', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(91,81,216,0.25) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: '-80px', left: '-80px', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(56,189,248,0.28) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: '-40px', right: '10%', width: '500px', height: '400px', background: 'radial-gradient(circle, rgba(91,81,216,0.2) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
+      {/* Glow blobs with enhanced intensity */}
+      <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(91,81,216,0.3) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none', filter: 'blur(60px)' }} />
+      <div style={{ position: 'absolute', bottom: '-150px', left: '-100px', width: '900px', height: '900px', background: 'radial-gradient(circle, rgba(56,189,248,0.3) 0%, transparent 65%)', borderRadius: '50%', pointerEvents: 'none', filter: 'blur(80px)' }} />
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '1000px', height: '1000px', background: 'radial-gradient(circle, rgba(91,81,216,0.05) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
 
       <div className="hero-inner">
 
@@ -329,31 +289,51 @@ const Hero = () => (
 
           {/* ── LEFT ──────────────────────────────── */}
           <div>
-            <div className="hero-badge">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="hero-badge"
+            >
               <Shield size={12} strokeWidth={2.5} />
               India's #1 Trusted Platform
-            </div>
+            </motion.div>
 
-            <h1 className="hero-h1">
+            <motion.h1 
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="hero-h1"
+            >
               India's Most Trusted<br />
               <span style={{ background: 'linear-gradient(135deg, #38bdf8, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                 College Reviewz
               </span><br />
               &amp; Counselling Platform
-            </h1>
+            </motion.h1>
 
-            <p className="hero-sub">
-              Discover top colleges, real student reviews, placements, fees, and rankings — everything you need to make the right decision.
-            </p>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="hero-sub"
+            >
+              Real ratings from verified students. Explore fees, placements, and campus life.
+            </motion.p>
 
-            <div className="hero-checks">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="hero-checks"
+            >
               {checks.map((c, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '9px', color: '#e2e8f0', fontSize: '13px', fontWeight: 600 }}>
                   <CheckCircle size={15} style={{ color: '#38bdf8', flexShrink: 0 }} strokeWidth={2.5} />
                   {c}
                 </div>
               ))}
-            </div>
+            </motion.div>
 
             <div className="hero-search-wrap">
               <input
@@ -383,7 +363,9 @@ const Hero = () => (
             </p>
 
             <div className="hero-ctas">
-              <button style={{ background: 'linear-gradient(135deg, #5b51d8, #38bdf8)', color: '#fff', padding: '13px 28px', borderRadius: '50px', fontWeight: 800, fontSize: '13px', border: 'none', cursor: 'pointer', boxShadow: '0 8px 24px rgba(91,81,216,0.25)', fontFamily: 'inherit', transition: 'all 0.2s' }}
+              <button 
+                onClick={() => onNavigate('Explore Colleges')}
+                style={{ background: 'linear-gradient(135deg, #5b51d8, #38bdf8)', color: '#fff', padding: '13px 28px', borderRadius: '50px', fontWeight: 800, fontSize: '13px', border: 'none', cursor: 'pointer', boxShadow: '0 8px 24px rgba(91,81,216,0.25)', fontFamily: 'inherit', transition: 'all 0.2s' }}
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(91,81,216,0.4)'; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(91,81,216,0.25)'; }}>
                 Find College
@@ -435,40 +417,13 @@ const Hero = () => (
           <div className="hero-right">
             <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(91,81,216,0.3) 0%, transparent 70%)', zIndex: 0, borderRadius: '50%' }} />
 
-            {/* Platform Rating card */}
-            <div style={{ position: 'absolute', top: '10px', left: '-10px', zIndex: 20, background: 'rgba(15,23,42,0.88)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '18px', padding: '12px 18px', color: '#fff', boxShadow: '0 16px 40px rgba(0,0,0,0.3)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px' }}>
-                <Star size={13} fill="#f59e0b" style={{ color: '#f59e0b' }} />
-                <span style={{ fontSize: '20px', fontWeight: 900, letterSpacing: '-0.5px' }}>4.8</span>
-              </div>
-              <div style={{ fontSize: '10px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Platform Rating</div>
-            </div>
 
-            {/* Students Helped card */}
-            <div style={{ position: 'absolute', bottom: '20px', right: '-10px', zIndex: 20, background: 'rgba(15,23,42,0.88)', backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '18px', padding: '12px 18px', color: '#fff', boxShadow: '0 16px 40px rgba(0,0,0,0.3)' }}>
-              <div style={{ fontSize: '20px', fontWeight: 900, letterSpacing: '-0.5px', color: '#38bdf8', lineHeight: 1 }}>1.5M+</div>
-              <div style={{ fontSize: '10px', fontWeight: 700, color: 'rgba(255,255,255,0.5)', textTransform: 'uppercase', letterSpacing: '0.08em', marginTop: '4px' }}>Students Helped</div>
-            </div>
 
-            <div style={{ position: 'relative', zIndex: 10, maxWidth: '400px', margin: '0 auto' }}>
-              <RobotIllustration />
+            <div style={{ position: 'relative', zIndex: 10, maxWidth: '500px', margin: '0 auto', display: 'flex', justifyContent: 'center', height: '400px' }}>
+              {/* Image is now part of the global hero background per request */}
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Floating Expert Button */}
-      <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 999, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-        <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: '#fff', boxShadow: '0 8px 24px rgba(91,81,216,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'transform 0.2s' }}
-          onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
-          onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}>
-          <MessageSquare size={22} style={{ color: '#5b51d8' }} strokeWidth={2} />
-        </div>
-        <button style={{ background: 'linear-gradient(135deg, #5b51d8, #38bdf8)', color: '#fff', padding: '10px 18px', borderRadius: '50px', fontWeight: 800, border: 'none', cursor: 'pointer', boxShadow: '0 8px 24px rgba(91,81,216,0.25)', fontSize: '12px', whiteSpace: 'nowrap', fontFamily: 'inherit', transition: 'all 0.2s' }}
-          onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(91,81,216,0.4)'; }}
-          onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(91,81,216,0.25)'; }}>
-          Ask Experts
-        </button>
       </div>
     </section>
   </>

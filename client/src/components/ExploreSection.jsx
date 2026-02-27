@@ -12,7 +12,7 @@ const items = [
   { title: 'Study Abroad', desc: 'International opportunities and visa support', icon: Globe, accent: '#ec4899', bg: '#fdf2f8', border: '#fbcfe8' },
 ];
 
-const ExploreSection = () => {
+const ExploreSection = ({ onNavigate }) => {
   return (
     <section style={{ padding: '72px 32px', background: '#f8fafc' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
@@ -21,13 +21,13 @@ const ExploreSection = () => {
         <div style={{ textAlign: 'center', marginBottom: '48px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#5b51d8', fontWeight: 800, fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.15em', marginBottom: '16px' }}>
             <div style={{ width: '32px', height: '1px', background: '#5b51d8', opacity: 0.4 }} />
-            What We Offer
+            Explore
             <div style={{ width: '32px', height: '1px', background: '#5b51d8', opacity: 0.4 }} />
           </div>
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, color: '#111827', marginBottom: '20px', lineHeight: 1.15, letterSpacing: '-0.5px' }}>
-            Everything You Need to<br />
+            Everything You Need — <br />
             <span style={{ background: 'linear-gradient(135deg, #5b51d8, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              Make the Right Choice
+              In One Place
             </span>
           </h2>
           <p style={{ color: '#64748b', fontSize: '17px', fontWeight: 500, margin: '0 auto', lineHeight: 1.7 }}>
@@ -40,6 +40,10 @@ const ExploreSection = () => {
           {items.map((item, i) => (
             <div
               key={i}
+              onClick={() => {
+                if (item.title === 'Colleges Directory') onNavigate('Explore Colleges');
+                if (item.title === 'Courses & Careers') onNavigate('Courses');
+              }}
               style={{
                 background: '#fff', borderRadius: '20px', padding: '24px 22px',
                 border: '1.5px solid #f1f5f9', cursor: 'pointer',
