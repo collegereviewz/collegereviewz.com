@@ -16,15 +16,21 @@ const PORT = process.env.PORT || 5000;
 import reviewRoutes from './route/review.route.js';
 import authRoutes from './route/auth.route.js';
 import userRoutes from './route/user.route.js';
+import collegeRoutes from './route/college.route.js';
+import { initCronJobs } from './services/cron.service.js';
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
+// Initialize Background Jobs
+initCronJobs();
+
 // Routes
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/colleges', collegeRoutes);
 
 // MongoDB Connection
 const connectDB = async () => {
