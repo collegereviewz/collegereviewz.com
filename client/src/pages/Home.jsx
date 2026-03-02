@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import Hero from '../components/Hero';
 import NewsUpdatesSection from '../components/NewsUpdatesSection';
 import TopColleges from '../components/TopColleges';
-import ExploreSection from '../components/ExploreSection';
 import PopularCourses from '../components/PopularCourses';
 import RewardsSection from '../components/RewardsSection';
 import ScholarshipSection from '../components/ScholarshipSection';
@@ -42,9 +41,6 @@ const Home = () => {
         <TopColleges />
       </motion.div>
       
-      <motion.div {...fadeInUp}>
-        <ExploreSection onNavigate={handleNavigate} />
-      </motion.div>
       
       <motion.div {...fadeInUp}>
         <PopularCourses onNavigate={handleNavigate} />

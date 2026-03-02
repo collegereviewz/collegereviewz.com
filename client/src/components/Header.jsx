@@ -8,6 +8,7 @@ import logoImg from '../assets/logo6.png';
 const Header = ({ currentView }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -90,6 +91,7 @@ const Header = ({ currentView }) => {
             <NavLink
               key={link.name}
               to={link.path}
+              end
               onClick={() => window.scrollTo(0, 0)}
               style={({ isActive }) => ({
                 color: isActive ? '#5b51d8' : '#64748b',
@@ -133,6 +135,7 @@ const Header = ({ currentView }) => {
             <NavLink
               key={link.name}
               to={link.path}
+              end
               onClick={() => {
                 setMenuOpen(false);
                 window.scrollTo(0, 0);

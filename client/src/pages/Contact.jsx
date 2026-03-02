@@ -42,7 +42,6 @@ const Contact = () => {
 
       {/* Hero Banner */}
       <section style={{
-        background: 'linear-gradient(135deg, #5b51d8p 0%, #38bdf8 50%, #a78bfa 100%)',
         background: 'linear-gradient(135deg, #5b51d8 0%, #7c3aed 30%, #38bdf8 70%, #a78bfa 100%)',
         padding: '125px 24px 20px', textAlign: 'center', position: 'relative', overflow: 'hidden'
       }}>
